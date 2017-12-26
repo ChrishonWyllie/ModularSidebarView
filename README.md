@@ -7,16 +7,6 @@
 
 
 
-<<<<<<< HEAD
-<br />
-<br />
-<div id="images">
-<img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-home-screen_iphonexspacegrey_portrait.png" width=200 height=398 />
-<img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-sidebarview-screen_iphonexspacegrey_portrait.png" width=200 height=398 />
-</div>
-
-=======
-
 
 <br />
 <br />
@@ -25,7 +15,6 @@
 <img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-sidebarview-screen_iphonexspacegrey_portrait.png" width=220 height=440 />
 </div>
  
->>>>>>> 727126af969fae524e99552a720fdae6e27df2f6
 ## Usage
 
 
