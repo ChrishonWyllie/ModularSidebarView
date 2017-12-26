@@ -145,10 +145,10 @@ func sidebarView(titlesForItemsIn section: Int) -> [String]
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 727126af969fae524e99552a720fdae6e27df2f6
+
+
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
