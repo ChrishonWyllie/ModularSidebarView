@@ -11,8 +11,15 @@ import ModularSidebarView
 
 class ViewController: UIViewController {
     
-    let sectionOneImageNames: [String] = ["defaultProfileImage_black", "TakePhotoButton", "ChangeCameraFlashButton", "DownloadToCameraRollButton", "ChangeCamera", "DrawButton", "ImageFilterIcon"]
-    let sectionOneOptionTitles: [String] = ["Home", "Upload", "UITest", "ProgressHUDs", "BLETest", "CustomMapView", "FilterTest"]
+    @IBOutlet var tableView: UITableView!
+    
+    let testData: [String] = ["test one",
+                              "test two",
+                              "test three",
+                              "test four"]
+    
+    let sectionOneImageNames: [String] = ["some_image_one", "some_image_two", "some_image_three", "some_image_four", "some_image_five"]
+    let sectionOneOptionTitles: [String] = ["Home", "Account", "Transactions", "Help", "Some option"]
     
     let sectionTwoImageNames: [String] = []
     let sectionTwoOptionTitles: [String] = ["Settings", "Log out"]
@@ -23,11 +30,9 @@ class ViewController: UIViewController {
     }()
     
     private lazy var sidebarView: SidebarView = {
-        //let sbv = SidebarView()
-        let sbv = SidebarView(dismissesOnSelection: true)
+        let sbv = SidebarView()
+        // let sbv = SidebarView(dismissesOnSelection: true)
         sbv.delegate = self
-        //sbv.datasource = self
-        //sbv.dismissesOnSelection = false
         return sbv
     }()
     
@@ -50,6 +55,30 @@ class ViewController: UIViewController {
 
 }
 
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return testData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        
+        let someTestString = testData[indexPath.row]
+        
+        cell?.textLabel?.text = someTestString
+        
+        return cell!
+        
+    }
+    
+}
+
 extension ViewController: SidebarViewDelegate {
     
     // Configure SidebarView
@@ -70,7 +99,7 @@ extension ViewController: SidebarViewDelegate {
             print(sectionTwoOptionTitles[indexPath.item])
         }
     }
-        
+    
     var sidebarViewWidth: CGFloat {
         get { return 0.8 }
     }
@@ -80,8 +109,20 @@ extension ViewController: SidebarViewDelegate {
     }
     
     var blurBackgroundStyle: UIBlurEffectStyle {
-        get { return UIBlurEffectStyle.dark }
+        get { return UIBlurEffectStyle.light }
     }
+    
+    var shouldPushRootViewControllerOnDisplay: Bool {
+        return true
+    }
+    
+    /*
+    func shouldRoundCornersWithRadius() -> CGFloat {
+        return 15
+    }
+    */
+    
+    
     
     
     
@@ -129,7 +170,7 @@ extension ViewController: SidebarViewDelegate {
             let titleLabel: UILabel = {
                 let lbl = UILabel()
                 lbl.translatesAutoresizingMaskIntoConstraints = false
-                lbl.text = "Chrishon Wyllie"
+                lbl.text = "Your Name"
                 lbl.textColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
                 lbl.font = UIFont.systemFont(ofSize: 20)
                 return lbl
@@ -157,8 +198,6 @@ extension ViewController: SidebarViewDelegate {
             
             titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 24).isActive = true
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
-            
-            //headerView.backgroundColor = .yellow
             
             return headerView
         default:
@@ -195,12 +234,14 @@ extension ViewController: SidebarViewDelegate {
                 customCell.customOptionLabel.text = sectionOneOptionTitles[indexPath.item]
                 customCell.customOptionLabel.textColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
                 
+                customCell.customImageView.backgroundColor = UIColor(red: 190/255, green: 60/255, blue: 30/255, alpha: 1.0)
+                
                 if let maskedImage = UIImage(named: sectionOneImageNames[indexPath.item]) {
                     customCell.customImageView.image = maskedImage
                 }
             case 1:
                 
-                customCell.customImageView.backgroundColor = .blue
+                customCell.customImageView.backgroundColor = UIColor(red: 30/255, green: 60/255, blue: 190/255, alpha: 1.0)
                 customCell.customOptionLabel.text = sectionTwoOptionTitles[indexPath.item]
             default: break
             }
@@ -247,8 +288,7 @@ class CustomSidebarCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        //imageView.layer.borderColor = UIColor.darkGray.cgColor
-        //imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.darkGray.cgColor
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -257,7 +297,6 @@ class CustomSidebarCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        //label.textColor = .white
         label.text = "Option"
         return label
     }()

@@ -13,14 +13,19 @@ import UIKit
 
 public class SidebarView: NSObject {
     
+    // MARK: - Variables and Delegate
+    
     private var screenWindow: UIWindow?
     
-    //public var dismissesOnSelection: Bool = true
-    
+    public var dismissesOnSelection: Bool = true
+    public var shouldPushOnDisplay: Bool = false
+    public var roundedCornerRadius: CGFloat?
     
     public static var containsHeaders: Bool!
     public static var percentageOfScreen: CGFloat = 0.80
     public static var sidebarViewBlurColor: UIColor = UIColor(white: 0.0, alpha: 0.5)
+    
+    
     
     private static var backgroundBlurEffect: UIBlurEffect = UIBlurEffect(style: .dark)
     private static var backgroundBlurEffectView: UIVisualEffectView!
@@ -32,7 +37,6 @@ public class SidebarView: NSObject {
         didSet {
             
             if let registedCell = delegate?.registerCustomCellForSidebarView {
-                // Unfortunately, there is no way to silence this warning at the moment
                 let cellClass: AnyClass = registedCell() as AnyClass
                 // Use a custom cell
                 initializeSidebarViewCollectionView(withCell: cellClass.self, andHeaderView: SidebarHeaderView.self)
@@ -63,6 +67,15 @@ public class SidebarView: NSObject {
                 SidebarView.initializeBackgroundBlurView(withBlurEffect: SidebarView.backgroundBlurEffect)
             }
             
+            if let willPushOnDisplay = delegate?.shouldPushRootViewControllerOnDisplay {
+                shouldPushOnDisplay = willPushOnDisplay
+            }
+            
+            if let getRoundedRadius = delegate?.shouldRoundCornersWithRadius {
+                roundedCornerRadius = getRoundedRadius()
+                SidebarView.sidebarCollectionView.roundCorners(corners: [.topRight, .bottomRight], radius: getRoundedRadius())
+            }
+            
             // backgroundColor of sidebarViewCell
             if let cellBackgroundColor = delegate?.sidebarCellBackgroundColor {
                 SidebarView.sidebarCellBackgroundColor = cellBackgroundColor
@@ -83,14 +96,17 @@ public class SidebarView: NSObject {
         }
     }
     
-    fileprivate static let sidebarHeaderReuseIdentifier = "sidebareHeaderView"
-    fileprivate static let sidebarReuseIdentifier = "sidebarCell"
+    
+    
+    
     
     // MARK: - UI Elements
     
     public static var backgroundBlurView: UIView!
     
-    //fileprivate lazy var collectionView: UICollectionView = {
+    fileprivate static let sidebarHeaderReuseIdentifier = "sidebareHeaderView"
+    fileprivate static let sidebarReuseIdentifier = "sidebarCell"
+    
     fileprivate static var sidebarCollectionView: SidebarCollectionView = {
         let collectionview = SidebarCollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.backgroundColor = UIColor.white
@@ -110,7 +126,7 @@ public class SidebarView: NSObject {
     
     
     
-    
+    // MARK: - Initializers
     
     public override init() {
         super.init()
@@ -119,6 +135,18 @@ public class SidebarView: NSObject {
     
     public init(dismissesOnSelection: Bool) {
         super.init()
+        
+        self.dismissesOnSelection = dismissesOnSelection
+        
+    }
+    
+    public init(dismissesOnSelection: Bool, pushesRootOnDisplay: Bool) {
+        super.init()
+        
+        self.dismissesOnSelection = dismissesOnSelection
+        
+        self.shouldPushOnDisplay = pushesRootOnDisplay
+        
     }
     
     private func initializeSidebarViewCollectionView(withCell customCell: AnyClass, andHeaderView customHeaderView: AnyClass) {
@@ -130,27 +158,30 @@ public class SidebarView: NSObject {
         SidebarView.sidebarCollectionView.register(customHeaderView, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: SidebarView.sidebarHeaderReuseIdentifier)
     }
     
-    private class func initializeBackgroundBlurView(withBlurEffect blurEffect: UIBlurEffect) {
+    private class func initializeBackgroundBlurView(withBlurEffect blurEffect: UIBlurEffect?) {
         if backgroundBlurView == nil {
             backgroundBlurView = UIView()
-            backgroundBlurEffectView = UIVisualEffectView(effect: blurEffect)
-            backgroundBlurEffectView.frame = backgroundBlurView.bounds
-            backgroundBlurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            //backgroundBlurView.addSubview(backgroundBlurEffectView)
+            
+            // Chcek if user provided a blur effect. If not, do nothing
+            if blurEffect != nil {
+                backgroundBlurEffectView = UIVisualEffectView(effect: blurEffect)
+                backgroundBlurEffectView.frame = backgroundBlurView.bounds
+                backgroundBlurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                backgroundBlurView.addSubview(backgroundBlurEffectView)
+            }
         }
     }
     
     public func showSidebarView() {
+        
         if let window = UIApplication.shared.keyWindow {
-            //if let window = screenWindow {
             
-            ///*
-            window.backgroundColor = .white
+            
+            //window.backgroundColor = .white
             //window.backgroundColor = window.rootViewController?.view.backgroundColor
             
             SidebarView.backgroundBlurView.backgroundColor = SidebarView.sidebarViewBlurColor
             SidebarView.backgroundBlurView.isUserInteractionEnabled = true
-            //SidebarView.backgroundBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
             SidebarView.backgroundBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SidebarView.dismiss)))
             
             window.addSubview(SidebarView.backgroundBlurView)
@@ -166,9 +197,10 @@ public class SidebarView: NSObject {
             
             // Unintentionally cuts off the entire UICollectionView. Meaning if the number of cells required scrolling, rounding the corners
             // would make the bottom-most cells invisible
-            SidebarView.sidebarCollectionView.roundCorners(corners: [.topRight, .bottomRight], radius: 30)
-            
-            //*/
+            //SidebarView.sidebarCollectionView.roundCorners(corners: [.topRight, .bottomRight], radius: 30)
+            if let radius = roundedCornerRadius {
+                SidebarView.sidebarCollectionView.roundCorners(corners: [.topRight, .bottomRight], radius: radius)
+            }
             
             /* Do Animations */
             CATransaction.begin()
@@ -180,7 +212,10 @@ public class SidebarView: NSObject {
                 
                 SidebarView.backgroundBlurView.alpha = 1.0
                 SidebarView.sidebarCollectionView.frame = CGRect(x: 0, y: 0, width: (deviceScreenWidth * SidebarView.percentageOfScreen), height: window.frame.height)
-                window.rootViewController?.view.frame = CGRect(x: deviceScreenWidth * SidebarView.percentageOfScreen, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                //window.rootViewController?.view.frame = CGRect(x: deviceScreenWidth * SidebarView.percentageOfScreen, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                if self.shouldPushOnDisplay == true {
+                    window.rootViewController?.view.frame = CGRect(x: deviceScreenWidth * SidebarView.percentageOfScreen, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                }
                 
                 
             }, completion: nil)
@@ -203,12 +238,13 @@ public class SidebarView: NSObject {
                 SidebarView.backgroundBlurView.alpha = 0.0
                 
                 SidebarView.sidebarCollectionView.frame = CGRect(x: -window.frame.width, y: 0, width: deviceScreenWidth * SidebarView.percentageOfScreen, height: window.frame.height)
-                window.rootViewController?.view.frame = CGRect(x: 0, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                //window.rootViewController?.view.frame = CGRect(x: 0, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                if self.shouldPushOnDisplay == true {
+                    window.rootViewController?.view.frame = CGRect(x: 0, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                }
             }
             
         }) { (completed) in
-            
-            //print("dismiss animation complete?: \(completed)")
             
             SidebarView.backgroundBlurView.removeFromSuperview()
             SidebarView.sidebarCollectionView.removeFromSuperview()
