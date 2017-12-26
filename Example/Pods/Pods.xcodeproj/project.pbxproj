@@ -9,9 +9,18 @@
 /* Begin PBXBuildFile section */
 		117A844653C6A25BD6EEC5B6E39C1973 /* Pods-ModularSidebarView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EAC449C80070BEE6538C80E8E22FCED0 /* Pods-ModularSidebarView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39E19789E7D0F5EE65A87725F3164784 /* Pods-ModularSidebarView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4A24DD5A51E409CA343F187A7ED817 /* Pods-ModularSidebarView_Example-dummy.m */; };
+		66838FE01FF1E7AE005EF162 /* SidebarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FDF1FF1E7AE005EF162 /* SidebarViewDelegate.swift */; };
+		66838FE21FF1E7E9005EF162 /* SidebarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE11FF1E7E9005EF162 /* SidebarCollectionView.swift */; };
+		66838FE41FF1E832005EF162 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE31FF1E832005EF162 /* SidebarView.swift */; };
+		66838FE61FF1E8CD005EF162 /* SidebarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE51FF1E8CD005EF162 /* SidebarHeaderView.swift */; };
+		66838FE81FF1E8F5005EF162 /* SidebarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */; };
+		66838FE91FF1F342005EF162 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE31FF1E832005EF162 /* SidebarView.swift */; };
 		669CCC924A4914B5F717B63B7C5E72EB /* ModularSidebarView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53227C886BE8B7F3BEE93EA3FF030384 /* ModularSidebarView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66C584CA1FF201560081DDA2 /* SidebarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FDF1FF1E7AE005EF162 /* SidebarViewDelegate.swift */; };
+		66C584CB1FF201610081DDA2 /* SidebarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */; };
+		66C584CC1FF201640081DDA2 /* SidebarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE51FF1E8CD005EF162 /* SidebarHeaderView.swift */; };
+		66C584CD1FF201670081DDA2 /* SidebarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE11FF1E7E9005EF162 /* SidebarCollectionView.swift */; };
 		8115BFE24A04AD62B0E31104FE57BC50 /* ModularSidebarView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4418DFFCEA1BF3D4BB61F208C0F8BFC1 /* ModularSidebarView-dummy.m */; };
-		843C2536770A8794C4BD762390CEB215 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887A708D1E730387B45A31716397B318 /* ReplaceMe.swift */; };
 		87EE3C32816D24EF13344593913D8094 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		A5DB928AEBE7AB5132446671E3811710 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		AF7153783A7CF857A90BDB3E99AED132 /* Pods-ModularSidebarView_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6235CAC4D0F6064A145A0B1C19C0769E /* Pods-ModularSidebarView_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,25 +49,29 @@
 		4418DFFCEA1BF3D4BB61F208C0F8BFC1 /* ModularSidebarView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ModularSidebarView-dummy.m"; sourceTree = "<group>"; };
 		44B3139F18C01983F7D99A6E5B3042F8 /* Pods-ModularSidebarView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ModularSidebarView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		4B91ABBA128456B3A095CCBE3B88A28B /* Pods-ModularSidebarView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ModularSidebarView_Tests-dummy.m"; sourceTree = "<group>"; };
-		5000F1CDD7938D3D6EF148DEBF164B09 /* ModularSidebarView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ModularSidebarView.framework; path = ModularSidebarView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5000F1CDD7938D3D6EF148DEBF164B09 /* ModularSidebarView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ModularSidebarView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53227C886BE8B7F3BEE93EA3FF030384 /* ModularSidebarView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ModularSidebarView-umbrella.h"; sourceTree = "<group>"; };
 		6235CAC4D0F6064A145A0B1C19C0769E /* Pods-ModularSidebarView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ModularSidebarView_Tests-umbrella.h"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		66838FDF1FF1E7AE005EF162 /* SidebarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewDelegate.swift; sourceTree = "<group>"; };
+		66838FE11FF1E7E9005EF162 /* SidebarCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarCollectionView.swift; sourceTree = "<group>"; };
+		66838FE31FF1E832005EF162 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		66838FE51FF1E8CD005EF162 /* SidebarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarHeaderView.swift; sourceTree = "<group>"; };
+		66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewCell.swift; sourceTree = "<group>"; };
 		69C29727965631CE0BE7C1410FAE3798 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72C79CBB89560020C6E260B1B6779B06 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D4A24DD5A51E409CA343F187A7ED817 /* Pods-ModularSidebarView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ModularSidebarView_Example-dummy.m"; sourceTree = "<group>"; };
 		8697E312C5E3D38097917AA1074993B2 /* Pods-ModularSidebarView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ModularSidebarView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		887A708D1E730387B45A31716397B318 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = ModularSidebarView/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		8CAED5FCB5E66C6DF86A367CDDB52F91 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		99402248610FB10B105BA2CCFF856011 /* Pods-ModularSidebarView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ModularSidebarView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		99DB1993DCB7B0A231916C9974EFDF1E /* ModularSidebarView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ModularSidebarView-prefix.pch"; sourceTree = "<group>"; };
-		A5188D01E3CC33F9C5B918DCC9AD9C35 /* Pods_ModularSidebarView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ModularSidebarView_Example.framework; path = "Pods-ModularSidebarView_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6563862DD70074FCA023B0D11CCC4C1 /* Pods_ModularSidebarView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ModularSidebarView_Tests.framework; path = "Pods-ModularSidebarView_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6D07454F23D9B6D8B74DC8AEEFC2699 /* Pods-ModularSidebarView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ModularSidebarView_Example.modulemap"; sourceTree = "<group>"; };
-		AD7C2529AFC3DA71E445DE683542EDA7 /* ModularSidebarView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ModularSidebarView.modulemap; sourceTree = "<group>"; };
+		A5188D01E3CC33F9C5B918DCC9AD9C35 /* Pods_ModularSidebarView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModularSidebarView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6563862DD70074FCA023B0D11CCC4C1 /* Pods_ModularSidebarView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModularSidebarView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6D07454F23D9B6D8B74DC8AEEFC2699 /* Pods-ModularSidebarView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ModularSidebarView_Example.modulemap"; sourceTree = "<group>"; };
+		AD7C2529AFC3DA71E445DE683542EDA7 /* ModularSidebarView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = ModularSidebarView.modulemap; sourceTree = "<group>"; };
 		DA60F435FF276DA96F22ED4FABC7F840 /* Pods-ModularSidebarView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ModularSidebarView_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		DB75DEE2C2BB6427D876DF2B0A9E2DBC /* Pods-ModularSidebarView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ModularSidebarView_Tests.modulemap"; sourceTree = "<group>"; };
+		DB75DEE2C2BB6427D876DF2B0A9E2DBC /* Pods-ModularSidebarView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ModularSidebarView_Tests.modulemap"; sourceTree = "<group>"; };
 		E1BD375B9606DA5E4E5DEFAF422D34D4 /* Pods-ModularSidebarView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ModularSidebarView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		E6C843FCB43D3C9F8DA84C1AE04950F3 /* Pods-ModularSidebarView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ModularSidebarView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		EAC449C80070BEE6538C80E8E22FCED0 /* Pods-ModularSidebarView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ModularSidebarView_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -110,6 +123,42 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
+		66838FDB1FF1E6FE005EF162 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				66838FDD1FF1E73A005EF162 /* SidebarCollectionView */,
+				66838FDC1FF1E732005EF162 /* SidebarView */,
+				66838FDE1FF1E746005EF162 /* SidebarViewDelegate */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		66838FDC1FF1E732005EF162 /* SidebarView */ = {
+			isa = PBXGroup;
+			children = (
+				66838FE31FF1E832005EF162 /* SidebarView.swift */,
+			);
+			path = SidebarView;
+			sourceTree = "<group>";
+		};
+		66838FDD1FF1E73A005EF162 /* SidebarCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				66838FE11FF1E7E9005EF162 /* SidebarCollectionView.swift */,
+				66838FE51FF1E8CD005EF162 /* SidebarHeaderView.swift */,
+				66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */,
+			);
+			path = SidebarCollectionView;
+			sourceTree = "<group>";
+		};
+		66838FDE1FF1E746005EF162 /* SidebarViewDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				66838FDF1FF1E7AE005EF162 /* SidebarViewDelegate.swift */,
+			);
+			path = SidebarViewDelegate;
+			sourceTree = "<group>";
+		};
 		775F17AEEDF64FABCA4360F2FAF68CFE /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,7 +182,7 @@
 		966996EAC02C036A3CACD25650E111FC /* ModularSidebarView */ = {
 			isa = PBXGroup;
 			children = (
-				887A708D1E730387B45A31716397B318 /* ReplaceMe.swift */,
+				66838FDB1FF1E6FE005EF162 /* Classes */,
 				D47B072F6AAB1DFD7FA5D80B6FDA2268 /* Support Files */,
 			);
 			name = ModularSidebarView;
@@ -296,6 +345,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					B17F237B497DC20F15330427C8188D42 = {
+						LastSwiftMigration = 0910;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -321,8 +375,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66838FE01FF1E7AE005EF162 /* SidebarViewDelegate.swift in Sources */,
+				66838FE41FF1E832005EF162 /* SidebarView.swift in Sources */,
+				66838FE21FF1E7E9005EF162 /* SidebarCollectionView.swift in Sources */,
+				66838FE81FF1E8F5005EF162 /* SidebarViewCell.swift in Sources */,
+				66838FE61FF1E8CD005EF162 /* SidebarHeaderView.swift in Sources */,
 				8115BFE24A04AD62B0E31104FE57BC50 /* ModularSidebarView-dummy.m in Sources */,
-				843C2536770A8794C4BD762390CEB215 /* ReplaceMe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +389,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				39E19789E7D0F5EE65A87725F3164784 /* Pods-ModularSidebarView_Example-dummy.m in Sources */,
+				66C584CD1FF201670081DDA2 /* SidebarCollectionView.swift in Sources */,
+				66C584CB1FF201610081DDA2 /* SidebarViewCell.swift in Sources */,
+				66C584CA1FF201560081DDA2 /* SidebarViewDelegate.swift in Sources */,
+				66C584CC1FF201640081DDA2 /* SidebarHeaderView.swift in Sources */,
+				66838FE91FF1F342005EF162 /* SidebarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +507,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
@@ -499,6 +563,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_VERSION = 4.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -541,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 187AE1CC22275BD0A4E1449F4AF86018 /* ModularSidebarView.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -553,7 +619,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ModularSidebarView/ModularSidebarView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ModularSidebarView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ModularSidebarView/ModularSidebarView.modulemap";
 				PRODUCT_NAME = ModularSidebarView;
@@ -637,6 +703,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 187AE1CC22275BD0A4E1449F4AF86018 /* ModularSidebarView.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -649,7 +716,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ModularSidebarView/ModularSidebarView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ModularSidebarView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ModularSidebarView/ModularSidebarView.modulemap";
 				PRODUCT_NAME = ModularSidebarView;
