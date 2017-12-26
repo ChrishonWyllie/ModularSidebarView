@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ModularSidebarView_Example' do
+  pod 'ModularSidebarView', :path => '../'
+
+  target 'ModularSidebarView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
