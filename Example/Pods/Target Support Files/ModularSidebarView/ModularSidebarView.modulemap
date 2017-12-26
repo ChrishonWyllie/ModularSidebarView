@@ -1,0 +1,6 @@
+framework module ModularSidebarView {
+  umbrella header "ModularSidebarView-umbrella.h"
+
+  export *
+  module * { export * }
+}

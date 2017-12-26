@@ -1,0 +1,6 @@
+framework module Pods_ModularSidebarView_Example {
+  umbrella header "Pods-ModularSidebarView_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

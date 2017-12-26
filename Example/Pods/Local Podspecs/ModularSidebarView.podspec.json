@@ -1,0 +1,22 @@
+{
+  "name": "ModularSidebarView",
+  "version": "0.1.0",
+  "summary": "A short description of ModularSidebarView.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/ChrishonWyllie/ModularSidebarView",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "ChrishonWyllie": "chrishon595@yahoo.com"
+  },
+  "source": {
+    "git": "https://github.com/ChrishonWyllie/ModularSidebarView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "ModularSidebarView/Classes/**/*"
+}
