@@ -6,17 +6,13 @@
 [![Platform](https://img.shields.io/cocoapods/p/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 
 
-
-<<<<<<< HEAD
-<br />
-<br />
-<div id="images">
-<img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-home-screen_iphonexspacegrey_portrait.png" width=200 height=398 />
-<img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-sidebarview-screen_iphonexspacegrey_portrait.png" width=200 height=398 />
-</div>
-
-=======
-
+<p>
+```swift
+ModularSidebarView
+```
+is a customizable menu for displaying options on the side of the screen for iOS.
+It is meant to act as a substitute to the usual UINavigation bar items and tool bar items.
+</p>
 
 <br />
 <br />
@@ -25,7 +21,6 @@
 <img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-sidebarview-screen_iphonexspacegrey_portrait.png" width=220 height=440 />
 </div>
  
->>>>>>> 727126af969fae524e99552a720fdae6e27df2f6
 ## Usage
 
 
