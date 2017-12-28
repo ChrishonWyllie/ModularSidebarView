@@ -14,6 +14,7 @@ ModularSidebarView is a customizable menu for displaying options on the side of 
 <div id="images">
 <img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-home-screen_iphonexspacegrey_portrait.png" width=220 height=440 />
 <img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-sidebarview-screen_iphonexspacegrey_portrait.png" width=220 height=440 />
+<img style="display: inline; margin: 0 5px;" src="http://www.chrishonwyllie.com/resources/images/portfolio/modularsidebarview/ModularSidebarView_demo_video.gif" width=220 height=440 />
 </div>
 
 ## Usage
