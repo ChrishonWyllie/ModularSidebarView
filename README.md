@@ -5,7 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 [![Platform](https://img.shields.io/cocoapods/p/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 
+</p>
 ModularSidebarView is a customizable menu for displaying options on the side of the screen for iOS. It is meant to act as a substitute to the usual UINavigation bar items and tool bar items.
+</p>
 
 <br />
 <br />
@@ -56,6 +58,36 @@ sidebarView.showSidebarView()
 
 <h3>Customizing the SidebarView</h3>
 <p>The ModularSidebarView relies on a variety of Delegate functions in order to provide a customizable look</p>
+
+<br />
+
+<h3>Customizing using the SidebarViewDelegate</h3>
+
+<p>You may extend the class:</p>
+
+```swift
+extension ViewController: SidebarViewDelegate {
+
+    // ... Conform to the SidebarViewDelegate here
+
+}
+```
+
+<p>Or simply add the delegate to the class type declarations:</p>
+
+```swift
+class ViewController: UIViewController, SidebarViewDelegate {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // ....
+    }
+
+}
+```
+
+
+<p>Use these delegate functions to configure the Sidebar as you see fit</p>
 
 ```swift
 
