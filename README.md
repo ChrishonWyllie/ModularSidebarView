@@ -1,18 +1,11 @@
+# ModularSidebarView
 
-<<<<<<< HEAD
 [![CI Status](http://img.shields.io/travis/ChrishonWyllie/ModularSidebarView.svg?style=flat)](https://travis-ci.org/ChrishonWyllie/ModularSidebarView)
 [![Version](https://img.shields.io/cocoapods/v/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 [![License](https://img.shields.io/cocoapods/l/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 [![Platform](https://img.shields.io/cocoapods/p/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 
-
-<p>
-```swift
-ModularSidebarView
-```
-is a customizable menu for displaying options on the side of the screen for iOS.
-It is meant to act as a substitute to the usual UINavigation bar items and tool bar items.
-</p>
+ModularSidebarView is a customizable menu for displaying options on the side of the screen for iOS. It is meant to act as a substitute to the usual UINavigation bar items and tool bar items.
 
 <br />
 <br />
@@ -20,7 +13,7 @@ It is meant to act as a substitute to the usual UINavigation bar items and tool 
 <img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-home-screen_iphonexspacegrey_portrait.png" width=220 height=440 />
 <img style="display: inline; margin: 0 5px;" src="Github Images/ModularSidebarView-sidebarview-screen_iphonexspacegrey_portrait.png" width=220 height=440 />
 </div>
- 
+
 ## Usage
 
 
@@ -30,12 +23,12 @@ It is meant to act as a substitute to the usual UINavigation bar items and tool 
 
 ```swift
 private lazy var sidebarView: SidebarView = {
-    let sbv = SidebarView()
-    // Either initializer is fine
-    // let sbv = SidebarView(dismissesOnSelection: true)
-    // let sbv = SidebarView(ddismissesOnSelection: true, pushesRootOnDisplay: false)
-    sbv.delegate = self
-    return sbv
+let sbv = SidebarView()
+// Either initializer is fine
+// let sbv = SidebarView(dismissesOnSelection: true)
+// let sbv = SidebarView(ddismissesOnSelection: true, pushesRootOnDisplay: false)
+sbv.delegate = self
+return sbv
 }()
 ```
 
@@ -43,14 +36,14 @@ private lazy var sidebarView: SidebarView = {
 
 ```swift
 lazy var sidebarButton: UIBarButtonItem = {
-    let btn = UIBarButtonItem(title: "Side", style: .done, target: self, action: #selector(openSidebarView(_:)))
-    return btn
+let btn = UIBarButtonItem(title: "Side", style: .done, target: self, action: #selector(openSidebarView(_:)))
+return btn
 }()
 
 // Here, we call the "showSidebarView()" function to display the SidebarView
 
 @objc private func openSidebarView(_ sender: Any) {
-    sidebarView.showSidebarView()
+sidebarView.showSidebarView()
 }
 ```
 
@@ -151,10 +144,10 @@ func sidebarView(titlesForItemsIn section: Int) -> [String]
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 727126af969fae524e99552a720fdae6e27df2f6
+
+
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -177,5 +170,4 @@ ChrishonWyllie, chrishon595@yahoo.com
 ## License
 
 ModularSidebarView is available under the MIT license. See the LICENSE file for more info.
-=======
->>>>>>> 4345c0d3802cf4642c879c2dd2fe3bf2acb29cf5
+
