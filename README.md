@@ -1,5 +1,5 @@
-# ModularSidebarView
 
+<<<<<<< HEAD
 [![CI Status](http://img.shields.io/travis/ChrishonWyllie/ModularSidebarView.svg?style=flat)](https://travis-ci.org/ChrishonWyllie/ModularSidebarView)
 [![Version](https://img.shields.io/cocoapods/v/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
 [![License](https://img.shields.io/cocoapods/l/ModularSidebarView.svg?style=flat)](http://cocoapods.org/pods/ModularSidebarView)
@@ -177,3 +177,5 @@ ChrishonWyllie, chrishon595@yahoo.com
 ## License
 
 ModularSidebarView is available under the MIT license. See the LICENSE file for more info.
+=======
+>>>>>>> 4345c0d3802cf4642c879c2dd2fe3bf2acb29cf5
