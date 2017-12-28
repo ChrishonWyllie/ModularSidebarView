@@ -28,7 +28,9 @@ private lazy var sidebarView: SidebarView = {
     let sbv = SidebarView()
     // Either initializer is fine
     // let sbv = SidebarView(dismissesOnSelection: true)
-    // let sbv = SidebarView(ddismissesOnSelection: true, pushesRootOnDisplay: false)
+    // let sbv = SidebarView(dismissesOnSelection: true, pushesRootOnDisplay: false)
+    
+    // This is essential to customizing the SidebarView and providing functions when a menu-item is tapped
     sbv.delegate = self
     return sbv
 }()
