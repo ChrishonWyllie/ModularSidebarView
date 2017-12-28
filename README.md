@@ -25,27 +25,27 @@ ModularSidebarView is a customizable menu for displaying options on the side of 
 
 ```swift
 private lazy var sidebarView: SidebarView = {
-let sbv = SidebarView()
-// Either initializer is fine
-// let sbv = SidebarView(dismissesOnSelection: true)
-// let sbv = SidebarView(ddismissesOnSelection: true, pushesRootOnDisplay: false)
-sbv.delegate = self
-return sbv
+    let sbv = SidebarView()
+    // Either initializer is fine
+    // let sbv = SidebarView(dismissesOnSelection: true)
+    // let sbv = SidebarView(ddismissesOnSelection: true, pushesRootOnDisplay: false)
+    sbv.delegate = self
+    return sbv
 }()
 ```
 
 <p>Then create some sort of UIButton, UIBarButtonItem or any view with userInteraction enabled. Create the selector and function however you choose.</p>
 
 ```swift
+// It is NOT required to a use a UIBarButtonItem to display the SidebarView. You may display it however you see fit. This is just an example.
 lazy var sidebarButton: UIBarButtonItem = {
-let btn = UIBarButtonItem(title: "Side", style: .done, target: self, action: #selector(openSidebarView(_:)))
-return btn
+    let btn = UIBarButtonItem(title: "Side", style: .done, target: self, action: #selector(openSidebarView(_:)))
+    return btn
 }()
 
 // Here, we call the "showSidebarView()" function to display the SidebarView
-
 @objc private func openSidebarView(_ sender: Any) {
-sidebarView.showSidebarView()
+    sidebarView.showSidebarView()
 }
 ```
 
@@ -68,7 +68,7 @@ sidebarView.showSidebarView()
 ```swift
 extension ViewController: SidebarViewDelegate {
 
-    // ... Conform to the SidebarViewDelegate here
+    // Conform to the SidebarViewDelegate here ...
 
 }
 ```
@@ -82,6 +82,9 @@ class ViewController: UIViewController, SidebarViewDelegate {
         super.viewDidLoad()
         // ....
     }
+
+
+    // Conform to SidebarViewDelegate here...
 
 }
 ```
