@@ -150,6 +150,7 @@ func sidebarView(_ sidebarView: SidebarView, numberOfItemsInSection section: Int
 // MARK: - Configure Cells
 
 // For creating custom cells. Return your own UICollectionViewCell class to be registered
+// Although the function requires an 'AnyClass', it must be a UICollectionViewCell in order to be registered
 @objc optional func registerCustomCellForSidebarView() -> AnyClass
 
 // Provide custom configurations for your custom cell
