@@ -116,11 +116,11 @@ extension ViewController: SidebarViewDelegate {
         get { return .red }
     }
     
-    /*
+    ///*
     var blurBackgroundStyle: UIBlurEffectStyle {
         get { return UIBlurEffectStyle.light }
     }
-    */
+    //*/
     
     var shouldPushRootViewControllerOnDisplay: Bool {
         return true

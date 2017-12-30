@@ -351,6 +351,9 @@ public class SidebarView: NSObject {
                                                      y: sidebarViewOrigin.y)
                     
                     SidebarView.sidebarCollectionView.frame.origin = newOrigin
+                    
+                    let percentTo35: CGFloat = (translation.x) / (rootView.frame.width * 0.35)
+                    SidebarView.backgroundBlurView.alpha = percentTo35
                 }
             }
         }
