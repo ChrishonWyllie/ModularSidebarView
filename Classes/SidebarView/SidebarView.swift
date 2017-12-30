@@ -254,26 +254,6 @@ public class SidebarView: NSObject {
         
         if let window = UIApplication.shared.keyWindow {
             
-            
-            //window.backgroundColor = .white
-            //window.backgroundColor = window.rootViewController?.view.backgroundColor
-            
-            //SidebarView.backgroundBlurView.backgroundColor = SidebarView.sidebarViewBlurColor
-            //SidebarView.backgroundBlurView.isUserInteractionEnabled = true
-            //SidebarView.backgroundBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SidebarView.dismiss)))
-            
-            //window.addSubview(SidebarView.backgroundBlurView)
-            //window.addSubview(SidebarView.sidebarCollectionView)
-            
-            //SidebarView.backgroundBlurView.frame = window.frame
-            //SidebarView.backgroundBlurView.alpha = 0.0
-            
-            
-            //SidebarView.sidebarCollectionView.frame = CGRect(x: -window.frame.width, y: 0, width: (deviceScreenWidth * SidebarView.percentageOfScreen), height: window.frame.height)
-            
-            //print("sidebar view frame before animation: \(SidebarView.sidebarCollectionView.frame)")
-            
-            
             // Unintentionally cuts off the entire UICollectionView. Meaning if the number of cells required scrolling, rounding the corners
             // would make the bottom-most cells invisible
             if let radius = roundedCornerRadius {
@@ -330,8 +310,6 @@ public class SidebarView: NSObject {
         }) { (completed) in
             
             self.sidebarViewIsShowing = false
-            //SidebarView.backgroundBlurView.removeFromSuperview()
-            //SidebarView.sidebarCollectionView.removeFromSuperview()
             
         }
         
