@@ -40,6 +40,12 @@ import UIKit
     // Round the topRight and bottomRight corners of the SidebarView
     @objc optional func shouldRoundCornersWithRadius() -> CGFloat
     
+    // Allow users to swipe to the right in order to display the SidebarView
+    @objc optional var allowsPullToDisplay: Bool { get }
+    
+    
+    
+    
     
     
     

@@ -29,20 +29,28 @@ class ViewController: UIViewController {
         return btn
     }()
     
+    /*
     private lazy var sidebarView: SidebarView = {
         let sbv = SidebarView()
         // let sbv = SidebarView(dismissesOnSelection: true)
         sbv.delegate = self
         return sbv
     }()
+    */
+    
+    // For if you want allowSwipeToDisplay
+    private var sidebarView: SidebarView?
     
     @objc private func openSidebarView(_ sender: Any) {
-        sidebarView.showSidebarView()
+        sidebarView?.showSidebarView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        sidebarView = SidebarView()
+        sidebarView?.delegate = self
         
         self.navigationItem.leftBarButtonItem = sidebarButton
         
@@ -105,12 +113,14 @@ extension ViewController: SidebarViewDelegate {
     }
     
     var sidebarViewBackgroundColor: UIColor {
-        get { return .white }
+        get { return .red }
     }
     
+    /*
     var blurBackgroundStyle: UIBlurEffectStyle {
         get { return UIBlurEffectStyle.light }
     }
+    */
     
     var shouldPushRootViewControllerOnDisplay: Bool {
         return true
@@ -122,6 +132,9 @@ extension ViewController: SidebarViewDelegate {
     }
     */
     
+    var allowsPullToDisplay: Bool {
+        return true
+    }
     
     
     

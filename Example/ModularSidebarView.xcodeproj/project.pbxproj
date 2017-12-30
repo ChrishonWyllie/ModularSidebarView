@@ -215,10 +215,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = UL42AV8U5L;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = UL42AV8U5L;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -519,7 +521,9 @@
 			baseConfigurationReference = 0DD9E1724C0352E04CAA03CE /* Pods-ModularSidebarView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = UL42AV8U5L;
 				INFOPLIST_FILE = ModularSidebarView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -534,7 +538,9 @@
 			baseConfigurationReference = C0CD6633861F63DD75965C2D /* Pods-ModularSidebarView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = UL42AV8U5L;
 				INFOPLIST_FILE = ModularSidebarView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -548,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C807A29E105A5436F0FF6D8A /* Pods-ModularSidebarView_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = UL42AV8U5L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -569,6 +576,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47BF2C313EBD104289411C86 /* Pods-ModularSidebarView_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = UL42AV8U5L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

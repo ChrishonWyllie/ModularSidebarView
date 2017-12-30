@@ -36,6 +36,40 @@ private lazy var sidebarView: SidebarView = {
 }()
 ```
 
+<p>ORRRRR....</p>
+<p>If you'd like users to be able to <b>SWIPE</b> to the <b>RIGHT</b> to show the SidebarView, declare and use like so: </p>
+
+```swift
+
+class ViewController: UIViewController, SidebarViewDelegate {
+
+    private var sidebarView: SidebarView?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        sidebarView = SidebarView()
+        sidebarView?.delegate = self
+    
+    }
+
+
+    // Conform to SidebarViewDelegate here...
+    
+    var allowsPullToDisplay: Bool {
+        return true
+    }
+    
+    // ... Configure rest of delegate functions ...
+}
+
+```
+
+<br />
+<br />
+
+
+
 <p>Then create some sort of UIButton, UIBarButtonItem or any view with userInteraction enabled. Create the selector and function however you choose.</p>
 
 ```swift
