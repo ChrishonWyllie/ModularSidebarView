@@ -1,17 +1,15 @@
 //
-//  ViewController.swift
-//  ModularSidebarView
+//  TestController.swift
+//  ModularSidebarView_Example
 //
-//  Created by ChrishonWyllie on 12/25/2017.
-//  Copyright (c) 2017 ChrishonWyllie. All rights reserved.
+//  Created by Chrishon Wyllie on 1/1/18.
+//  Copyright © 2018 CocoaPods. All rights reserved.
 //
 
 import UIKit
 import ModularSidebarView
 
-class ViewController: UIViewController {
-    
-    @IBOutlet var tableView: UITableView!
+class TestController: UITableViewController {
     
     let testData: [String] = ["test one",
                               "test two",
@@ -26,41 +24,28 @@ class ViewController: UIViewController {
     
     let sectionTwoImageNames: [String] = []
     let sectionTwoOptionTitles: [String] = ["Settings", "Log out"]
+
+    // For if you want allowSwipeToDisplay
+    private var sidebarView: SidebarView?
     
     lazy var sidebarButton: UIBarButtonItem = {
         let btn = UIBarButtonItem(title: "Side", style: .done, target: self, action: #selector(openSidebarView(_:)))
         return btn
     }()
     
-    
-    private lazy var newControllerButton: UIBarButtonItem = {
-        let btn = UIBarButtonItem(title: "New", style: .done, target: self, action: #selector(pushTestController(_:)))
-        return btn
-    }()
-    
-    @objc private func pushTestController(_ sender: Any) {
-        let navController = UINavigationController(rootViewController: TestController())
-        self.present(navController, animated: true, completion: nil)
-    }
-    
-    
-    // For if you want allowSwipeToDisplay
-    private var sidebarView: SidebarView?
-    
     @objc private func openSidebarView(_ sender: Any) {
         sidebarView?.showSidebarView()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         sidebarView = SidebarView()
         sidebarView?.delegate = self
-        
         self.navigationItem.leftBarButtonItem = sidebarButton
-        self.navigationItem.rightBarButtonItem = newControllerButton
         
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,23 +53,21 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-}
+    // MARK: - Table view data source
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return testData.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 240
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         
@@ -95,10 +78,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell!
         
     }
-    
 }
 
-extension ViewController: SidebarViewDelegate {
+
+extension TestController: SidebarViewDelegate {
     
     // Configure SidebarView
     
@@ -144,10 +127,10 @@ extension ViewController: SidebarViewDelegate {
     }
     
     /*
-    func shouldRoundCornersWithRadius() -> CGFloat {
-        return 15
-    }
-    */
+     func shouldRoundCornersWithRadius() -> CGFloat {
+     return 15
+     }
+     */
     
     var allowsPullToDisplay: Bool {
         return true
@@ -300,58 +283,3 @@ extension ViewController: SidebarViewDelegate {
     
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-class CustomSidebarCell: UICollectionViewCell {
-    
-    var customImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.layer.borderColor = UIColor.darkGray.cgColor
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
-    var customOptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.text = "Option"
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        addSubview(customImageView)
-        addSubview(customOptionLabel)
-        
-        
-        customImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        customImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        customImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        customImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        customImageView.layer.cornerRadius = 20
-        
-        
-        customOptionLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        customOptionLabel.leadingAnchor.constraint(equalTo: customImageView.trailingAnchor, constant: 16).isActive = true
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}

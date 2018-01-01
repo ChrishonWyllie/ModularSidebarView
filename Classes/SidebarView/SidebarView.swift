@@ -37,7 +37,11 @@ public class SidebarView: NSObject {
     public static var sidebarViewBackgroundColor: UIColor = UIColor.white
     public static var sidebarCellBackgroundColor: UIColor = UIColor.white
     
-    private lazy var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(panGesture:)))
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(panGesture:)))
+        gesture.delegate = self
+        return gesture
+    }()
     
     public weak var delegate: SidebarViewDelegate? {
         didSet {
@@ -539,7 +543,19 @@ extension SidebarView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
 
 extension SidebarView: UIGestureRecognizerDelegate {
     
+    /*
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        print("gesture recognizer delegate function")
+        return true
+    }
+    */
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let window = screenWindow, let controllerView = window.visibleViewController()?.view else { return false }
+        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
+            let velocity = panGesture.velocity(in: controllerView)
+            return fabs(velocity.x) > fabs(velocity.y)
+        }
         return true
     }
     
