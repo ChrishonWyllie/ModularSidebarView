@@ -16,6 +16,9 @@
 		66838FE81FF1E8F5005EF162 /* SidebarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */; };
 		66838FE91FF1F342005EF162 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE31FF1E832005EF162 /* SidebarView.swift */; };
 		669CCC924A4914B5F717B63B7C5E72EB /* ModularSidebarView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53227C886BE8B7F3BEE93EA3FF030384 /* ModularSidebarView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66B96E931FFAA15200A499CB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B96E901FFA067E00A499CB /* Extensions.swift */; };
+		66B96E941FFAA15400A499CB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B96E901FFA067E00A499CB /* Extensions.swift */; };
+		66B96E951FFAA15B00A499CB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B96E901FFA067E00A499CB /* Extensions.swift */; };
 		66C584CA1FF201560081DDA2 /* SidebarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FDF1FF1E7AE005EF162 /* SidebarViewDelegate.swift */; };
 		66C584CB1FF201610081DDA2 /* SidebarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */; };
 		66C584CC1FF201640081DDA2 /* SidebarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66838FE51FF1E8CD005EF162 /* SidebarHeaderView.swift */; };
@@ -58,6 +61,7 @@
 		66838FE31FF1E832005EF162 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		66838FE51FF1E8CD005EF162 /* SidebarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarHeaderView.swift; sourceTree = "<group>"; };
 		66838FE71FF1E8F5005EF162 /* SidebarViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewCell.swift; sourceTree = "<group>"; };
+		66B96E901FFA067E00A499CB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		69C29727965631CE0BE7C1410FAE3798 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72C79CBB89560020C6E260B1B6779B06 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D4A24DD5A51E409CA343F187A7ED817 /* Pods-ModularSidebarView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ModularSidebarView_Example-dummy.m"; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 		66838FDB1FF1E6FE005EF162 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				66B96E8F1FFA063D00A499CB /* Extensions */,
 				66838FDD1FF1E73A005EF162 /* SidebarCollectionView */,
 				66838FDC1FF1E732005EF162 /* SidebarView */,
 				66838FDE1FF1E746005EF162 /* SidebarViewDelegate */,
@@ -157,6 +162,14 @@
 				66838FDF1FF1E7AE005EF162 /* SidebarViewDelegate.swift */,
 			);
 			path = SidebarViewDelegate;
+			sourceTree = "<group>";
+		};
+		66B96E8F1FFA063D00A499CB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				66B96E901FFA067E00A499CB /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		775F17AEEDF64FABCA4360F2FAF68CFE /* Targets Support Files */ = {
@@ -381,6 +394,7 @@
 				66838FE81FF1E8F5005EF162 /* SidebarViewCell.swift in Sources */,
 				66838FE61FF1E8CD005EF162 /* SidebarHeaderView.swift in Sources */,
 				8115BFE24A04AD62B0E31104FE57BC50 /* ModularSidebarView-dummy.m in Sources */,
+				66B96E951FFAA15B00A499CB /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +408,7 @@
 				66C584CA1FF201560081DDA2 /* SidebarViewDelegate.swift in Sources */,
 				66C584CC1FF201640081DDA2 /* SidebarHeaderView.swift in Sources */,
 				66838FE91FF1F342005EF162 /* SidebarView.swift in Sources */,
+				66B96E931FFAA15200A499CB /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F44C865920E2A30E22D1B1AD01FF4D27 /* Pods-ModularSidebarView_Tests-dummy.m in Sources */,
+				66B96E941FFAA15400A499CB /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

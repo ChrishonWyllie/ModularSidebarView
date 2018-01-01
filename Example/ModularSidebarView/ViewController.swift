@@ -51,7 +51,9 @@ class ViewController: UIViewController {
         
         sidebarView = SidebarView()
         sidebarView?.delegate = self
-        
+        if let window = UIApplication.shared.keyWindow {
+            window.visibleViewController()
+        }
         self.navigationItem.leftBarButtonItem = sidebarButton
         
     }
@@ -100,12 +102,18 @@ extension ViewController: SidebarViewDelegate {
     }
     
     func sidebarView(_ sidebarView: SidebarView, didSelectItemAt indexPath: IndexPath) {
+        var infoToPass: String
+        let detailViewController = DetailViewController()
         switch indexPath.section {
         case 0:
             print(sectionOneOptionTitles[indexPath.item])
+            infoToPass = sectionOneOptionTitles[indexPath.item]
         default:
             print(sectionTwoOptionTitles[indexPath.item])
+            infoToPass = sectionTwoOptionTitles[indexPath.item]
         }
+        detailViewController.passedInfoString = infoToPass
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     var sidebarViewWidth: CGFloat {
@@ -113,12 +121,12 @@ extension ViewController: SidebarViewDelegate {
     }
     
     var sidebarViewBackgroundColor: UIColor {
-        get { return .red }
+        get { return .groupTableViewBackground }
     }
     
     ///*
     var blurBackgroundStyle: UIBlurEffectStyle {
-        get { return UIBlurEffectStyle.light }
+        get { return UIBlurEffectStyle.dark }
     }
     //*/
     

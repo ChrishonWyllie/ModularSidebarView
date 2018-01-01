@@ -15,6 +15,9 @@ public class SidebarView: NSObject {
     
     // MARK: - Variables and Delegate
     
+    private weak var screenWindow: UIWindow?
+    private weak var rootViewController: UIViewController?
+    
     private var sidebarViewIsShowing: Bool = false
     
     public var dismissesOnSelection: Bool = true
@@ -32,6 +35,8 @@ public class SidebarView: NSObject {
     
     public static var sidebarViewBackgroundColor: UIColor = UIColor.white
     public static var sidebarCellBackgroundColor: UIColor = UIColor.white
+    
+    private lazy var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(panGesture:)))
     
     public weak var delegate: SidebarViewDelegate? {
         didSet {
@@ -83,7 +88,8 @@ public class SidebarView: NSObject {
             
             // Determine if swiping the screen will also display the sidebarview
             if let allowsPullToDisplay = delegate?.allowsPullToDisplay, let window = UIApplication.shared.keyWindow {
-                allowsPullToDisplay ? window.rootViewController?.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(panGesture:)))) : nil
+                //allowsPullToDisplay ? window.rootViewController?.view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(panGesture:)))) : nil
+                allowsPullToDisplay ? window.visibleViewController()?.view.addGestureRecognizer(panGesture) : nil
             }
             
             
@@ -136,12 +142,10 @@ public class SidebarView: NSObject {
             frame = window.frame
         }
         
-        //let view = UIView()
         let view = UIView(frame: frame)
         view.backgroundColor = SidebarView.sidebarViewBlurColor
         view.isUserInteractionEnabled = true
         view.alpha = 0.0
-        //view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SidebarView.dismiss)))
         return view
     }()
     
@@ -157,7 +161,6 @@ public class SidebarView: NSObject {
                            height: window.frame.height)
         }
         
-        //let collectionview = SidebarCollectionView(frame: .zero, collectionViewLayout: layout)
         let collectionview = SidebarCollectionView(frame: frame, collectionViewLayout: layout)
         collectionview.backgroundColor = UIColor.white
         return collectionview
@@ -198,14 +201,14 @@ public class SidebarView: NSObject {
         super.init()
         
         // Add as a subview to window and set delegate and datasource
-        addSubviewsWindow()
+        addSubviewsToWindow()
     }
     
     public init(dismissesOnSelection: Bool) {
         super.init()
         
         // Add as a subview to window and set delegate and datasource
-        addSubviewsWindow()
+        addSubviewsToWindow()
         
         self.dismissesOnSelection = dismissesOnSelection
         
@@ -215,7 +218,7 @@ public class SidebarView: NSObject {
         super.init()
         
         // Add as a subview to window and set delegate and datasource
-        addSubviewsWindow()
+        addSubviewsToWindow()
         
         self.dismissesOnSelection = dismissesOnSelection
         
@@ -223,11 +226,14 @@ public class SidebarView: NSObject {
         
     }
     
-    private func addSubviewsWindow() {
+    private func addSubviewsToWindow() {
         if let window = UIApplication.shared.keyWindow {
-            
-            window.addSubview(SidebarView.backgroundBlurView)
+            screenWindow = window
             SidebarView.backgroundBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SidebarView.dismiss)))
+            
+            //window.visibleViewController()?.view.addSubview(SidebarView.backgroundBlurView)
+            //window.visibleViewController()?.view.addSubview(SidebarView.sidebarCollectionView)
+            window.addSubview(SidebarView.backgroundBlurView)
             window.addSubview(SidebarView.sidebarCollectionView)
             
             SidebarView.sidebarCollectionView.delegate = self
@@ -252,37 +258,43 @@ public class SidebarView: NSObject {
     
     public func showSidebarView() {
         
-        if let window = UIApplication.shared.keyWindow {
+        
+        // Unintentionally cuts off the entire UICollectionView. Meaning if the number of cells required scrolling, rounding the corners
+        // would make the bottom-most cells invisible
+        if let radius = roundedCornerRadius {
+            SidebarView.sidebarCollectionView.roundCorners(corners: [.topRight, .bottomRight], radius: radius)
+        }
+        
+        /* Do Animations */
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(0.5)
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
+        
+        // View animations
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
-            // Unintentionally cuts off the entire UICollectionView. Meaning if the number of cells required scrolling, rounding the corners
-            // would make the bottom-most cells invisible
-            if let radius = roundedCornerRadius {
-                SidebarView.sidebarCollectionView.roundCorners(corners: [.topRight, .bottomRight], radius: radius)
+            SidebarView.backgroundBlurView.alpha = 1.0
+            SidebarView.sidebarCollectionView.frame = CGRect(x: 0,
+                                                             y: 0,
+                                                             width: (deviceScreenWidth * SidebarView.percentageOfScreen),
+                                                             height: (self.screenWindow?.frame.height)!)
+            if self.shouldPushOnDisplay == true {
+                
+                self.screenWindow?.visibleViewController()?.view.frame = CGRect(x: deviceScreenWidth * SidebarView.percentageOfScreen,
+                                                                                y: 0,
+                                                                                width: deviceScreenWidth,
+                                                                                height: deviceScreenHeight)
+                
             }
             
-            /* Do Animations */
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(0.5)
-            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
             
-            // View animations
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                
-                SidebarView.backgroundBlurView.alpha = 1.0
-                SidebarView.sidebarCollectionView.frame = CGRect(x: 0, y: 0, width: (deviceScreenWidth * SidebarView.percentageOfScreen), height: window.frame.height)
-                if self.shouldPushOnDisplay == true {
-                    window.rootViewController?.view.frame = CGRect(x: deviceScreenWidth * SidebarView.percentageOfScreen, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
-                }
-                
-                
-            }, completion: { (completed) in
-                if completed {
-                    self.sidebarViewIsShowing = true
-                }
-            })
-            
-            CATransaction.commit()
-        }
+        }, completion: { (completed) in
+            if completed {
+                self.sidebarViewIsShowing = true
+            }
+        })
+        
+        CATransaction.commit()
     }
     
     @objc public func dismiss() {
@@ -295,16 +307,15 @@ public class SidebarView: NSObject {
         // View animations
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             
-            if let window = UIApplication.shared.keyWindow {
-                SidebarView.backgroundBlurView.alpha = 0.0
-                
-                SidebarView.sidebarCollectionView.frame = CGRect(x: -(window.frame.width * SidebarView.percentageOfScreen),
-                                                                 y: 0,
-                                                                 width: deviceScreenWidth * SidebarView.percentageOfScreen,
-                                                                 height: window.frame.height)
-                if self.shouldPushOnDisplay == true {
-                    window.rootViewController?.view.frame = CGRect(x: 0, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
-                }
+            SidebarView.backgroundBlurView.alpha = 0.0
+            
+            SidebarView.sidebarCollectionView.frame = CGRect(x: -((self.screenWindow?.frame.width)! * SidebarView.percentageOfScreen),
+                                                             y: 0,
+                                                             width: deviceScreenWidth * SidebarView.percentageOfScreen,
+                                                             height: (self.screenWindow?.frame.height)!)
+            if self.shouldPushOnDisplay == true {
+                //self.screenWindow?.rootViewController?.view.frame = CGRect(x: 0, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
+                self.screenWindow?.visibleViewController()?.view.frame = CGRect(x: 0, y: 0, width: deviceScreenWidth, height: deviceScreenHeight)
             }
             
         }) { (completed) in
@@ -506,8 +517,8 @@ extension SidebarView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let del = delegate, let callFunction = del.sidebarView?(self, didSelectItemAt: indexPath) {
-            callFunction
+        if let del = delegate, let performTheSpecifiedFunction = del.sidebarView?(self, didSelectItemAt: indexPath) {
+            performTheSpecifiedFunction
         }
         
         // Whenever an item is clicked, dismiss the sidebar anyway
@@ -518,3 +529,10 @@ extension SidebarView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
 }
+
+
+
+
+
+
+
