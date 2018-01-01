@@ -5,6 +5,7 @@
 //  Created by Chrishon Wyllie on 12/25/17.
 //
 
+var applicationScreenWindow: UIWindow?
 let deviceScreenWidth: CGFloat = UIScreen.main.bounds.width
 let deviceScreenHeight: CGFloat = UIScreen.main.bounds.height
 let statusbarFrame: CGRect = UIApplication.shared.statusBarFrame
@@ -536,3 +537,10 @@ extension SidebarView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
 
 
 
+extension SidebarView: UIGestureRecognizerDelegate {
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+}

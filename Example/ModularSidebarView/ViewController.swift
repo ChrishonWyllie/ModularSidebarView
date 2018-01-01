@@ -16,7 +16,10 @@ class ViewController: UIViewController {
     let testData: [String] = ["test one",
                               "test two",
                               "test three",
-                              "test four"]
+                              "test four",
+                              "test five",
+                              "test six",
+                              "test seven"]
     
     let sectionOneImageNames: [String] = ["some_image_one", "some_image_two", "some_image_three", "some_image_four", "some_image_five"]
     let sectionOneOptionTitles: [String] = ["Home", "Account", "Transactions", "Help", "Some option"]
@@ -73,6 +76,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return testData.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 240
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

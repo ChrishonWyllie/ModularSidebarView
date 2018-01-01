@@ -7,7 +7,6 @@
 
 import Foundation
 
-///*
 extension UIWindow {
     
     public func visibleViewController() -> UIViewController? {
@@ -17,32 +16,35 @@ extension UIWindow {
         return nil
     }
     
-    public class func getVisibleViewController(from vc: UIViewController) -> UIViewController {
+    public class func getVisibleViewController(from viewController: UIViewController) -> UIViewController {
         
-        if vc.isKind(of: UINavigationController.self) {
+        if viewController.isKind(of: UINavigationController.self) {
             
-            let navigationController = vc as? UINavigationController
+            let navigationController = viewController as? UINavigationController
             return self.getVisibleViewController(from: (navigationController?.visibleViewController)!)
-            //return UIWindow.getVisibleViewController(from: (navigationController?.visibleViewController)!)
             
-        } else if vc.isKind(of: UITabBarController.self) {
+        } else if viewController.isKind(of: UITabBarController.self) {
             
-            let tabBarController = vc as? UITabBarController
+            let tabBarController = viewController as? UITabBarController
             return self.getVisibleViewController(from: (tabBarController?.selectedViewController!)!)
-            //return UIWindow.getVisibleViewController(from: (tabBarController?.selectedViewController!)!)
             
         } else {
             
-            if let presentedViewController = vc.presentedViewController {
+            if let presentedViewController = viewController.presentedViewController {
                 
                 return self.getVisibleViewController(from: presentedViewController.presentedViewController!)
-                //return UIWindow.getVisibleViewController(from: presentedViewController.presentedViewController!)
                 
             } else {
                 
-                return vc
+                return viewController
             }
         }
     }
 }
-//*/
+
+
+
+
+
+
+
