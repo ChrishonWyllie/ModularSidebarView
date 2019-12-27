@@ -248,7 +248,7 @@ public class SidebarView: NSObject {
     
     private func setupSidebarCollectionView(withCell customCell: AnyClass, andHeaderView customHeaderView: AnyClass) {
         SidebarView.sidebarCollectionView.register(customCell, forCellWithReuseIdentifier: SidebarView.sidebarReuseIdentifier)
-        SidebarView.sidebarCollectionView.register(customHeaderView, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: SidebarView.sidebarHeaderReuseIdentifier)
+        SidebarView.sidebarCollectionView.register(customHeaderView, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SidebarView.sidebarHeaderReuseIdentifier)
     }
     
     private class func initializeBackgroundBlurView(withBlurEffect blurEffect: UIBlurEffect?) {
@@ -273,7 +273,7 @@ public class SidebarView: NSObject {
         /* Do Animations */
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.5)
-        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut))
         
         // View animations
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
@@ -307,7 +307,7 @@ public class SidebarView: NSObject {
         /* Do Animations */
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.5)
-        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut))
         
         // View animations
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
@@ -404,7 +404,7 @@ extension SidebarView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         switch kind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             let header: SidebarHeaderView?
             
             header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SidebarView.sidebarHeaderReuseIdentifier, for: indexPath) as? SidebarHeaderView
@@ -543,18 +543,11 @@ extension SidebarView: UICollectionViewDataSource, UICollectionViewDelegate, UIC
 
 extension SidebarView: UIGestureRecognizerDelegate {
     
-    /*
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        print("gesture recognizer delegate function")
-        return true
-    }
-    */
-    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let window = screenWindow, let controllerView = window.visibleViewController()?.view else { return false }
         if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
             let velocity = panGesture.velocity(in: controllerView)
-            return fabs(velocity.x) > fabs(velocity.y)
+            return abs(velocity.x) > abs(velocity.y)
         }
         return true
     }

@@ -117,8 +117,8 @@ extension TestController: SidebarViewDelegate {
     }
     
     ///*
-    var blurBackgroundStyle: UIBlurEffectStyle {
-        get { return UIBlurEffectStyle.dark }
+    var blurBackgroundStyle: UIBlurEffect.Style {
+        get { return UIBlurEffect.Style.dark }
     }
     //*/
     

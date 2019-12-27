@@ -31,7 +31,7 @@ import UIKit
     @objc optional var backgroundColor: UIColor { get }
     
     // Determine the style of the "blur" view. Options: .dark, .light, .extraLight
-    @objc optional var blurBackgroundStyle: UIBlurEffectStyle { get }
+    @objc optional var blurBackgroundStyle: UIBlurEffect.Style { get }
     
     // Determine whether the SidebarView will push the underlying rootViewController over when displayed
     // or simply Cover it

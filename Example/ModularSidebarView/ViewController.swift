@@ -45,18 +45,26 @@ class ViewController: UIViewController {
     
     
     // For if you want allowSwipeToDisplay
-    private var sidebarView: SidebarView?
+    private lazy var sidebarView: SidebarView = {
+        let sbv = SidebarView()
+        // This is essential to customizing the SidebarView and providing functions when a menu-item is tapped
+        sbv.delegate = self
+        return sbv
+    }()
+    
+    //private var sidebarView: SidebarView?
     
     @objc private func openSidebarView(_ sender: Any) {
-        sidebarView?.showSidebarView()
+        //sidebarView?.showSidebarView()
+        sidebarView.showSidebarView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        sidebarView = SidebarView()
-        sidebarView?.delegate = self
+        //sidebarView = SidebarView()
+        //sidebarView?.delegate = self
         
         self.navigationItem.leftBarButtonItem = sidebarButton
         self.navigationItem.rightBarButtonItem = newControllerButton
@@ -134,8 +142,8 @@ extension ViewController: SidebarViewDelegate {
     }
     
     ///*
-    var blurBackgroundStyle: UIBlurEffectStyle {
-        get { return UIBlurEffectStyle.dark }
+    var blurBackgroundStyle: UIBlurEffect.Style {
+        get { return UIBlurEffect.Style.dark }
     }
     //*/
     
