@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ModularSidebarView'
-  s.version          = '0.2.5'
+  s.version          = '0.2.6'
   s.summary          = 'A customizable side bar view.'
 
 # This description is used to generate tags and improve search results.
@@ -27,11 +27,11 @@ A customizable menu for displaying options on the side of the screen. This can s
   s.author           = { 'ChrishonWyllie' => 'chrishon595@yahoo.com' }
   s.source           = { :git => 'https://github.com/ChrishonWyllie/ModularSidebarView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.swift_versions   = ['4.0', '4.1', '4.2', '5.0', '5.1']
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'Classes/**/*'
-  # s.source_files = 'ModularSidebarView/Classes/**/*'
   
   # s.resource_bundles = {
   #   'ModularSidebarView' => ['ModularSidebarView/Assets/*.png']
