@@ -53,7 +53,7 @@ private lazy var sidebarButton: UIBarButtonItem = {
 
 // Here, we call the "showSidebarView()" function to display the SidebarView
 @objc private func openSidebarView(_ sender: Any) {
-    sidebarView.showSidebarView()
+    sidebarView.show()
 }
 
 override func viewDidLoad() {
@@ -120,6 +120,7 @@ class ViewController: UIViewController, SidebarViewDelegate {
 ```
 
 
+## SidebarViewDelegate
 <p>Use these delegate functions to configure the Sidebar as you see fit</p>
 
 ```swift
