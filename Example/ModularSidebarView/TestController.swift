@@ -34,15 +34,15 @@ class TestController: UITableViewController {
     }()
     
     @objc private func openSidebarView(_ sender: Any) {
-        sidebarView?.showSidebarView()
+        sidebarView?.show()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        sidebarView = SidebarView()
-        sidebarView?.delegate = self
+        sidebarView = SidebarView(delegate: self)
+        
         self.navigationItem.leftBarButtonItem = sidebarButton
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")

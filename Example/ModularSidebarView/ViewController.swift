@@ -11,7 +11,15 @@ import ModularSidebarView
 
 class ViewController: UIViewController {
     
-    @IBOutlet var tableView: UITableView!
+    private let cellReuseIdentifier = "Cell"
+    private lazy var tableView: UITableView = {
+        let tbv = UITableView()
+        tbv.translatesAutoresizingMaskIntoConstraints = false
+        tbv.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        tbv.delegate = self
+        tbv.dataSource = self
+        return tbv
+    }()
     
     let testData: [String] = ["test one",
                               "test two",
@@ -46,18 +54,15 @@ class ViewController: UIViewController {
     
     // For if you want allowSwipeToDisplay
     private lazy var sidebarView: SidebarView = {
-        let sbv = SidebarView()
-        // This is essential to customizing the SidebarView and providing functions when a menu-item is tapped
-        sbv.delegate = self
+        let sbv = SidebarView(delegate: self, dismissesOnSelection: true, pushesRootOnDisplay: true)
         return sbv
     }()
     
-    //private var sidebarView: SidebarView?
-    
     @objc private func openSidebarView(_ sender: Any) {
-        //sidebarView?.showSidebarView()
-        sidebarView.showSidebarView()
+        sidebarView.show()
     }
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +70,13 @@ class ViewController: UIViewController {
         
         //sidebarView = SidebarView()
         //sidebarView?.delegate = self
+        
+        view.addSubview(tableView)
+        
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         self.navigationItem.leftBarButtonItem = sidebarButton
         self.navigationItem.rightBarButtonItem = newControllerButton
@@ -78,6 +90,18 @@ class ViewController: UIViewController {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+// MARK: - UITableViewDelegate and UITableViewDataSource
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,7 +118,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)
         
         let someTestString = testData[indexPath.row]
         
@@ -105,6 +129,23 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MARK: - SidebarViewDelegate
 
 extension ViewController: SidebarViewDelegate {
     
