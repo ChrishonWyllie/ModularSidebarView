@@ -25,44 +25,12 @@ ModularSidebarView is a customizable menu for displaying options on the side of 
 
 ```swift
 private lazy var sidebarView: SidebarView = {
-    let sbv = SidebarView()
+    let sbv = SidebarView(delegate: self)
     // Either initializer is fine
-    // let sbv = SidebarView(dismissesOnSelection: true)
-    // let sbv = SidebarView(dismissesOnSelection: true, pushesRootOnDisplay: false)
-    
-    // This is essential to customizing the SidebarView and providing functions when a menu-item is tapped
-    sbv.delegate = self
+    // let sbv = SidebarView(delegate: self, dismissesOnSelection: true)
+    // let sbv = SidebarView(delegate: self, dismissesOnSelection: true, pushesRootOnDisplay: false)
     return sbv
 }()
-```
-
-<p>ORRRRR....</p>
-<p>If you'd like users to be able to <b>SWIPE</b> to the <b>RIGHT</b> to show the SidebarView, declare and use like so: </p>
-
-```swift
-
-class ViewController: UIViewController, SidebarViewDelegate {
-
-    private var sidebarView: SidebarView?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        sidebarView = SidebarView()
-        sidebarView?.delegate = self
-    
-    }
-
-
-    // Conform to SidebarViewDelegate here...
-    
-    var allowsPullToDisplay: Bool {
-        return true
-    }
-    
-    // ... Configure rest of delegate functions ...
-}
-
 ```
 
 <br />
@@ -73,21 +41,38 @@ class ViewController: UIViewController, SidebarViewDelegate {
 <p>Then create some sort of UIButton, UIBarButtonItem or any view with userInteraction enabled. Create the selector and function however you choose.</p>
 
 ```swift
-// It is NOT required to a use a UIBarButtonItem to display the SidebarView. You may display it however you see fit. This is just an example.
-lazy var sidebarButton: UIBarButtonItem = {
-    let btn = UIBarButtonItem(title: "Side", style: .done, target: self, action: #selector(openSidebarView(_:)))
+// It is NOT required to a use a UIBarButtonItem to display the SidebarView. 
+// Provide your own implementation for triggering the SidebarView to show.
+private lazy var sidebarButton: UIBarButtonItem = {
+    let btn = UIBarButtonItem(title: "Sidebar", 
+                              style: .done, 
+                              target: self, 
+                              action: #selector(openSidebarView(_:)))
     return btn
 }()
 
 // Here, we call the "showSidebarView()" function to display the SidebarView
 @objc private func openSidebarView(_ sender: Any) {
-    sidebarView.showSidebarView()
+    sidebarView.show()
+}
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view, typically from a nib.
+
+    // ... Other UI setup
+
+    // Place the sidebarButton in the navigationBar if desired.
+    self.navigationItem.leftBarButtonItem = sidebarButton
 }
 ```
 
 
 <h3>Dismissing the SidebarView</h3>
-<p>Simply tap the background view</p>
+<ul>
+    <li><p>Simply tap the background view</p></li>
+    <li><p>Or pressing one of the options in the SidebarView will also dismiss on selection if set to TRUE in initializer</p></li>
+</ul>
 
 
 
@@ -102,16 +87,6 @@ lazy var sidebarButton: UIBarButtonItem = {
 <p>You may extend the class:</p>
 
 ```swift
-extension ViewController: SidebarViewDelegate {
-
-    // Conform to the SidebarViewDelegate here ...
-
-}
-```
-
-<p>Or simply add the delegate to the class type declarations:</p>
-
-```swift
 class ViewController: UIViewController, SidebarViewDelegate {
 
     override func viewDidLoad() {
@@ -121,11 +96,31 @@ class ViewController: UIViewController, SidebarViewDelegate {
 
 
     // Conform to SidebarViewDelegate here...
+    // NOTE
+    // There are many optional delegate functions, 
+    // but most of them are similar to UICollectionViewDataSource and UICollectionViewDelegate
 
+
+    // Example
+    // Providing your own custom Sidebar cell
+    
+    func registerCustomCellForSidebarView() -> AnyClass {
+        return CustomSidebarCell.self
+    }
+    
+    func sidebarView(configureCell cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    
+        if let customCell = cell as? CustomSidebarCell {
+        
+            // Do custom UI setup for cell
+        }
+        
+    }
 }
 ```
 
 
+## SidebarViewDelegate
 <p>Use these delegate functions to configure the Sidebar as you see fit</p>
 
 ```swift
