@@ -1,4 +1,15 @@
-## [Version 0.2.16](https://github.com/ChrishonWyllie/ModularSidebarView/releases/tag/0.2.11)
+## [Version 0.2.20](https://github.com/ChrishonWyllie/ModularSidebarView/releases/tag/0.2.20)
+
+### New
+N/A
+
+### Improvements
+* Updated README with more relevant information
+
+### Bug fixes
+N/A
+
+## [Version 0.2.16](https://github.com/ChrishonWyllie/ModularSidebarView/releases/tag/0.2.16)
 
 ### New
     * Created this CHANGELOG file
