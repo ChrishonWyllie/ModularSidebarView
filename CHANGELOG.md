@@ -1,3 +1,22 @@
+
+## [Version 1.0.0](https://github.com/ChrishonWyllie/ModularSidebarView/releases/tag/1.0.0)
+
+### New
+* Release version
+
+### Improvements
+
+* Cleaner APIs:
+* renamed functions
+* deprecated unnecessary initializers
+* deprecated unnecessary delegate functions in favor instance variables
+* replaced confusing SidebarViewCell titles with View-Models
+* replaced CGRect/frame animation and manipulation with NSLayoutConstraints
+* Updated README with more relevant information
+
+### Bug fixes
+N/A
+
 ## [Version 0.2.20](https://github.com/ChrishonWyllie/ModularSidebarView/releases/tag/0.2.20)
 
 ### New
