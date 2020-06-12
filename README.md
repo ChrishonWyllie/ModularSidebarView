@@ -26,9 +26,7 @@ ModularSidebarView is a customizable menu for displaying options on the side of 
 ```swift
 private lazy var sidebarView: SidebarView = {
     let sbv = SidebarView(delegate: self)
-    // Either initializer is fine
-    // let sbv = SidebarView(delegate: self, dismissesOnSelection: true)
-    // let sbv = SidebarView(delegate: self, dismissesOnSelection: true, pushesRootOnDisplay: false)
+    // Make desired configurations
     return sbv
 }()
 ```
@@ -69,149 +67,195 @@ override func viewDidLoad() {
 
 
 <h3>Dismissing the SidebarView</h3>
+
+```swift
+
+private func dismissSidebarView() {
+    sidebarView.dismiss()
+}
+
+```
 <ul>
     <li><p>Simply tap the background view</p></li>
-    <li><p>Or pressing one of the options in the SidebarView will also dismiss on selection if set to TRUE in initializer</p></li>
+    <li><p>Or pressing one of the options in the SidebarView will also dismiss on selection if dismissesOnSelection set to TRUE</p></li>
 </ul>
 
 
 
 
-<h3>Customizing the SidebarView</h3>
-<p>The ModularSidebarView relies on a variety of Delegate functions in order to provide a customizable look</p>
+## Adding items to the SidebarView
+<h3>The SidebarView uses a View-Model approach to laying out items.</h3>
+<p>You may subclass the default provided classes or conform to the underlying protocol for more customization</p>
 
-<br />
-
-<h3>Customizing using the SidebarViewDelegate</h3>
-
-<p>You may extend the class:</p>
+### Step 1: Creating View-Models</h3>
+#### Subclassing the `SidebarViewCellModel`, `SidebarViewReusableViewSectionModel` and `SidebarViewReusableViewModel`
 
 ```swift
-class ViewController: UIViewController, SidebarViewDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // ....
-    }
-
-
-    // Conform to SidebarViewDelegate here...
-    // NOTE
-    // There are many optional delegate functions, 
-    // but most of them are similar to UICollectionViewDataSource and UICollectionViewDelegate
-
-
-    // Example
-    // Providing your own custom Sidebar cell
+// SidebarViewCellModel is the View-Model that represents a SidebarView cell
+// CustomSidebarCellModel is a custom subclass. You may provide your own subclass
+class CustomSidebarCellModel: SidebarViewCellModel {
     
-    func registerCustomCellForSidebarView() -> AnyClass {
-        return CustomSidebarCell.self
-    }
+    var image: UIImage?
+    var title: String
     
-    func sidebarView(configureCell cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    
-        if let customCell = cell as? CustomSidebarCell {
+    init(image: UIImage?, title: String) {
+        self.image = image
+        self.title = title
         
-            // Do custom UI setup for cell
-        }
-        
+        // This is very imporant. Provide the cell class you wish for this model to display
+        // This must be a UICollectionViewCell
+        super.init(cellClass: CustomSidebarCell.self)
+    }
+}
+```
+```swift
+
+// At heart, SidebarView is a UICollectionView.
+// As such, may render both a header and footer supplementaryView for each section.
+// The SidebarViewReusableViewSectionModel provides a container for both the header and footer in each section.
+
+SidebarViewReusableViewSectionModel(headerViewModel: SidebarViewReusableViewModelProtocol?, footerViewModel: SidebarViewReusableViewModelProtocol?)
+
+// You create your own header and footer supplementary view-models that conform to SidebarViewReusableViewModelProtocol or subclass the default SidebarViewReusableViewModel:
+
+class CustomHeaderModel: SidebarViewReusableViewModel {
+    
+    init() {
+        super.init(reusableViewClass: CustomSidebarSectionHeader.self, elementType: .header)
+    }
+}
+
+class CustomFooterModel: SidebarViewReusableViewModel {
+    
+    init() {
+        super.init(reusableViewClass: CustomSidebarSectionHeader.self, elementType: .footer)
     }
 }
 ```
 
-
-## SidebarViewDelegate
-<p>Use these delegate functions to configure the Sidebar as you see fit</p>
+### Step 2: Creating Views (Cells and ReusableViews)
+#### Subclassing the `SidebarViewCell` and  `SidebarReusableView`
 
 ```swift
 
-// MARK: - Configure SidebarView
+class CustomSidebarCell: SidebarViewCell {
 
-func numberOfSections(in sidebarView: SidebarView) -> Int
+    // Important to override this function to configure the cells as desired
+    override func configure(with item: SidebarViewCellModelProtocol, at indexPath: IndexPath) {
+        super.configure(with: item, at: indexPath)
+        guard let customViewModel = item as? CustomSidebarCellModel else { 
+            return
+        }
+        
+        // configure the cell with your custom View-Model data
+        self.imageView.image = customViewModel.image
+        
+        self.titleLabel.text = customViewModel.title
+    }
+}
 
-func sidebarView(_ sidebarView: SidebarView, numberOfItemsInSection section: Int) -> Int
+class CustomSidebarSectionHeader: SidebarReusableView {
 
-// Use this to provide an action to when a cell is selected. Similar to UITableView or UICollectionView functionality
-@objc optional func sidebarView(_ sidebarView: SidebarView, didSelectItemAt indexPath: IndexPath)
+    // Important to override this function to configure the view as desired
+    override func configure(with item: SidebarViewReusableViewModelProtocol, at indexPath: IndexPath) {
+        super.configure(with: item, at: indexPath)
+        guard let customViewModel = item as? CustomHeaderModel else {
+            return
+        }
+        
+        // configure the cell with your custom header View-Model data
+        
+    }
+}
 
-// For settings specific colors for each item manually instead of blanket coloring every cell
-@objc optional func sidebarView(backgroundColor color: UIColor, forItemAt IndexPath: IndexPath) -> UIColor
+```
 
-// Determine width of SidebarView using percentage of device screen. Default is 0.80 (80 %) of the screen
-@objc optional var sidebarViewWidth: CGFloat { get }
+### Step 3: Inserting the View-Models into the SidebarView
+#### Use these two functions to insert Cell and ReusableView View-Models at desired indexPaths
 
-// Determine background color of the SidebarView
-@objc optional var sidebarViewBackgroundColor: UIColor { get }
+```swift
 
-// Determine color of the "blur" view in the background. Essentially the darkening effect that appears over the unerlying viewcontroller
-@objc optional var backgroundColor: UIColor { get }
+func insertSidebarView(models: [SidebarViewCellModelProtocol], atIndexPaths indexPaths: [IndexPath])
 
-// Determine the style of the "blur" view. Options: .dark, .light, .extraLight
-@objc optional var blurBackgroundStyle: UIBlurEffectStyle { get }
+func insertReusableView(reusableSectionModels: [SidebarViewReusableViewSectionProtocol], atIndices indices: [Int])
+```
 
-// Determine whether the SidebarView will push the underlying rootViewController over when displayed
-// or simply Cover it
-@objc optional var shouldPushRootViewControllerOnDisplay: Bool { get }
+<h1>Example</h1>
 
-// Round the topRight and bottomRight corners of the SidebarView
-@objc optional func shouldRoundCornersWithRadius() -> CGFloat
+```swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    setupSidebarViewItems()
+    
+}
 
-// Allow users to swipe to the right in order to display the SidebarView
-@objc optional var allowsPullToDisplay: Bool { get }
+private func setupSidebarViewItems() {
 
+    // Create Cell View-Models
 
-
-// MARK: - Configure Headers
-
-@objc optional func willDisplayHeaders() -> Bool
-
-// Provide your own view to be added to the Header in each section of the SidebarView
-@objc optional func sidebarView(_ sidebarView: SidebarView, viewForHeaderIn section: Int) -> UIView?
-
-// Configure the height of each header
-@objc optional func sidebarView(_ sidebarView: SidebarView, heightForHeaderIn section: Int) -> CGFloat
-
-
-
-
-
-
-
-
-// MARK: - Configure Cells
-
-// For creating custom cells. Return your own UICollectionViewCell class to be registered
-// Although the function requires an 'AnyClass', it must be a UICollectionViewCell in order to be registered
-@objc optional func registerCustomCellForSidebarView() -> AnyClass
-
-// Provide custom configurations for your custom cell
-@objc optional func sidebarView(configureCell cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
-
-// Determine background color of the SidebarViewCell
-@objc optional var sidebarCellBackgroundColor: UIColor { get }
-
-// Determine the actual title of each UICollectionViewCell
-func sidebarView(titlesForItemsIn section: Int) -> [String]
-
-
-
-// !!!
-// These three optional delegate functions work for the DEFAULT SidebarViewCell. If you provide a custom cell, don't use these
-
-// Font of UILabel in SidebarViewCell
-@objc optional func sidebarView(fontForTitleAt indexPath: IndexPath) -> UIFont?
-
-// TextColor of UILabel in SidebarViewCell
-@objc optional func sidebarView(textColorForTitleAt indexPath: IndexPath) -> UIColor?
-
-// Determine height of each cell
-@objc optional func sidebarView(heightForItemIn section: Int) -> CGFloat
-
+    let sectionOneIndexPaths: [IndexPath = // ... Construct array of IndexPaths for section 0
+    let sectionOneItems: [SidebarViewCellModelProtocol] = // ... Construct array of View-Models for section 0
+    
+    let sectionTwoIndexPaths: [IndexPath = // ... Construct array of IndexPaths for section 1
+    let sectionTwoItems: [SidebarViewCellModelProtocol] = // ... Construct array of View-Models for section 1
+    
+    let completeListOfItems: [SidebarViewCellModelProtocol] = (sectionOneItems + sectionTwoItems)
+    let completeListOfIndexPaths = (sectionOneIndexPaths + sectionTwoIndexPaths)
+    
+    sidebarView.insertSidebarView(models: completeListOfItems, atIndexPaths: completeListOfIndexPaths)
+    
+    
+    
+    
+    // Create ReusableView View-Models
+    
+    let reusableSectionItems: [SidebarViewReusableViewSectionModel] = // ... Construct array of ReusableView Section View-Models
+    let sectionIndices: [Int] = // ... Construct of section indices (positive integers)
+    
+    sidebarView.insertReusableView(reusableSectionModels: reusableSectionItems, atIndices: sectionIndices)
+    
+}
 
 ```
 
 
+<br />
 
+<h3>Extending the SidebarViewDelegate</h3>
+
+<p>You may extend the class:</p>
+
+```swift
+class ViewController: SidebarViewDelegate {
+
+    func sidebarView(_ sidebarView: SidebarView, didSelectItemAt indexPath: IndexPath) {
+        
+        // Provide custom action/functionality when tapping a SidebarView cell at each indexPath
+        
+    }
+    
+    func sidebarView(_ sidebarView: SidebarView, heightForHeaderIn section: Int) -> CGFloat {
+        
+        // Provide height for supplementary header reusableView at each section
+        
+    }
+    
+    func sidebarView(_ sidebarView: SidebarView, heightForFooterIn section: Int) -> CGFloat {
+        
+        // Provide height for supplementary footer reusableView at each section
+        
+    }
+    
+    func sidebarView(_ view: SidebarView, heightForItemAt indexPath: IndexPath) -> CGFloat {
+        
+        // Provide heights for items at each IndexPath
+        
+    }
+}
+```
 
 
 

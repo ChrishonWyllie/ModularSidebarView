@@ -9,7 +9,15 @@ import UIKit
 
 // MARK: UICollectionView Cell
 
-public class SidebarViewCell: UICollectionViewCell {
+open class SidebarViewCell: UICollectionViewCell, ConfigurableSidebarViewCell {
+    public typealias CellModelClass = SidebarViewCellModelProtocol
+    
+    open func configure(with item: SidebarViewCellModelProtocol, at indexPath: IndexPath) {
+        
+    }
+}
+
+public class TextSidebarViewCell: SidebarViewCell {
     
     public var optionLabel: UILabel = {
         let label = UILabel()
