@@ -77,7 +77,7 @@ private func dismissSidebarView() {
 ```
 <ul>
     <li><p>Simply tap the background view</p></li>
-    <li><p>Or pressing one of the options in the SidebarView will also dismiss on selection if set to TRUE in initializer</p></li>
+    <li><p>Or pressing one of the options in the SidebarView will also dismiss on selection if dismissesOnSelection set to TRUE</p></li>
 </ul>
 
 
@@ -87,8 +87,8 @@ private func dismissSidebarView() {
 <h3>The SidebarView uses a View-Model approach to laying out items.</h3>
 <p>You may subclass the default provided classes or conform to the underlying protocol for more customization</p>
 
-<h3>Step 1: Creating View-Models</h3>
-<h1>Subclassing the `SidebarViewCellModel`, `SidebarViewReusableViewSectionModel` and `SidebarViewReusableViewModel`</h3>
+### Step 1: Creating View-Models</h3>
+#### Subclassing the `SidebarViewCellModel`, `SidebarViewReusableViewSectionModel` and `SidebarViewReusableViewModel`
 
 ```swift
 
@@ -113,11 +113,11 @@ class CustomSidebarCellModel: SidebarViewCellModel {
 
 // At heart, SidebarView is a UICollectionView.
 // As such, may render both a header and footer supplementaryView for each section.
-// The `SidebarViewReusableViewSectionModel` provides a container for both the header and footer in each section.
+// The SidebarViewReusableViewSectionModel provides a container for both the header and footer in each section.
 
 SidebarViewReusableViewSectionModel(headerViewModel: SidebarViewReusableViewModelProtocol?, footerViewModel: SidebarViewReusableViewModelProtocol?)
 
-// You create your own header and footer supplementary view-models that conform to `SidebarViewReusableViewModelProtocol1 or subclass the default `SidebarViewReusableViewModel`:
+// You create your own header and footer supplementary view-models that conform to SidebarViewReusableViewModelProtocol or subclass the default SidebarViewReusableViewModel:
 
 class CustomHeaderModel: SidebarViewReusableViewModel {
     
@@ -134,8 +134,8 @@ class CustomFooterModel: SidebarViewReusableViewModel {
 }
 ```
 
-<h3>Step 2: Creating Views (Cells and ReusableViews)</h3>
-<h1>Subclassing the `SidebarViewCell` and  `SidebarReusableView`</h3>
+### Step 2: Creating Views (Cells and ReusableViews)
+#### Subclassing the `SidebarViewCell` and  `SidebarReusableView`
 
 ```swift
 
@@ -171,8 +171,8 @@ class CustomSidebarSectionHeader: SidebarReusableView {
 
 ```
 
-<h3>Step 3: Inserting the View-Models into the SidebarView </h3>
-<p>Use these two functions to insert Cell and ReusableView View-Models at desired indexPaths</p>
+### Step 3: Inserting the View-Models into the SidebarView
+#### Use these two functions to insert Cell and ReusableView View-Models at desired indexPaths
 
 ```swift
 
