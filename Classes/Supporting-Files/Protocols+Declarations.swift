@@ -24,7 +24,7 @@ public protocol SidebarViewCellModelProtocol {
     var cellReuseIdentifier: String { get }
 }
 
-public protocol SidebarViewReusableViewSectionProtocol: class {
+public protocol SidebarViewReusableViewSectionProtocol: AnyObject {
     var headerViewModel: SidebarViewReusableViewModelProtocol? { get }
     var footerViewModel: SidebarViewReusableViewModelProtocol? { get }
 }
@@ -48,7 +48,7 @@ public protocol SidebarViewReusableViewModelProtocol {
 /// Provides overridable function to configure the cell with the CellModel
 /// This is not intended for users to conform to directly. Instead, subclass
 /// the SidebarViewCell and override its configure(with:at:) function
-public protocol ConfigurableSidebarViewCell: class {
+public protocol ConfigurableSidebarViewCell: AnyObject {
     associatedtype CellModelClass
     func configure(with item: CellModelClass, at indexPath: IndexPath)
 }
@@ -57,7 +57,7 @@ public protocol ConfigurableSidebarViewCell: class {
 /// Provides overridable function to configure the view with the ReusableViewModel
 /// This is not intended for users to conform to directly. Instead, subclass the
 /// SidebarReusableView and override its configure(with:at:) function
-public protocol ConfigurableReusableView: class {
+public protocol ConfigurableReusableView: AnyObject {
     associatedtype ReusableViewModelClass
     func configure(with item: ReusableViewModelClass, at indexPath: IndexPath)
 }
@@ -79,7 +79,7 @@ public protocol ConfigurableReusableView: class {
 
 // MARK: - SidebarViewDelegate
 
-@objc public protocol SidebarViewDelegate: class {
+@objc public protocol SidebarViewDelegate: AnyObject {
     
     // Use this to provide an action to when a cell is selected. Similar to UITableView or UICollectionView functionality
     @objc optional func sidebarView(_ sidebarView: SidebarView, didSelectItemAt indexPath: IndexPath)
